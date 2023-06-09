@@ -1,16 +1,25 @@
 "use client";
-
+import { SafeUser } from "../types";
 import { twMerge } from "tailwind-merge";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { FiHome, FiSearch } from "react-icons/fi";
 import Button from "./Button";
+import useLoginModal from "../hooks/useLoginModal";
+import useRegisterModal from "../hooks/useRegisterModal";
 
 interface HeaderProps {
   children: React.ReactNode;
   className?: string;
+  currentUser?: SafeUser | null;
 }
 
-const Header: React.FC<HeaderProps> = ({ children, className }) => {
+const Header: React.FC<HeaderProps> = ({
+  children,
+  className,
+  currentUser,
+}) => {
+  const loginModel = useLoginModal();
+  const registerModel = useRegisterModal();
   return (
     <div
       className={twMerge(
@@ -38,13 +47,19 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         <div className="flex justify-between items-center gap-4">
           <>
             <div>
-              <Button className="bg-transparent text-neutral-300 font-medium">
-                Sign in
+              <Button
+                onClick={registerModel.onOpen}
+                className="bg-transparent text-neutral-300 font-medium"
+              >
+                Sign up
               </Button>
             </div>
             <div>
-              <Button onClick={() => {}} className="bg-white px-6 py-2">
-                Login
+              <Button
+                onClick={loginModel.onOpen}
+                className="bg-white px-6 py-2"
+              >
+                Login {currentUser?.name}
               </Button>
             </div>
           </>

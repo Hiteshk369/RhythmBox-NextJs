@@ -1,3 +1,4 @@
+import getCurrentUser from "../actions/getCurrentUser";
 import Header from "../components/Header";
 import ListItem from "../components/ListItem";
 

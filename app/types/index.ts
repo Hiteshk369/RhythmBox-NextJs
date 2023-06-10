@@ -8,3 +8,12 @@ export type SafeUser = Omit<
   updatedAt: string;
   emailVerified: string | null;
 };
+
+// export interface Song {
+//   id?: string;
+//   userId?: string;
+//   title?: string;
+//   artist?: string;
+//   imagePath?: string;
+//   songPath?: string;
+// }

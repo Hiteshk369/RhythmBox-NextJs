@@ -1,15 +1,24 @@
 "use client";
-import useUploadModal from "@/app/hooks/useUploadModal";
-import Modal from "./Modal";
-import Input from "../Input";
+
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/app/libs/supabaseClient";
 import { toast } from "react-hot-toast";
 import uniqid from "uniqid";
+import axios from "axios";
 
-const UploadModal = () => {
+import Input from "../Input";
+import Modal from "./Modal";
+import { SafeUser } from "@/app/types";
+
+import { supabase } from "@/app/libs/supabaseClient";
+import useUploadModal from "@/app/hooks/useUploadModal";
+
+interface uploadModalProps {
+  currentUser: SafeUser | null;
+}
+
+const UploadModal: React.FC<uploadModalProps> = ({ currentUser }) => {
   const uploadModal = useUploadModal();
   const router = useRouter();
 
@@ -35,7 +44,7 @@ const UploadModal = () => {
       const songFile = data.song?.[0];
       const imageFile = data.image?.[0];
       console.log(data);
-      if (!imageFile) {
+      if (!imageFile || !songFile || !currentUser) {
         toast.error("Missing Fields");
         return;
       }
@@ -66,6 +75,16 @@ const UploadModal = () => {
         console.log(imageError);
         return toast.error("Failed image upload");
       }
+
+      await axios
+        .post("/api/songs", {
+          userId: currentUser.id,
+          title: data.songTitle,
+          artist: data.artist,
+          imagePath: imageData.path,
+          songPath: songData.path,
+        })
+        .catch((err) => console.log(err));
 
       router.refresh();
       setIsLoading(false);

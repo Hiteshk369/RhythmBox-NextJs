@@ -7,9 +7,12 @@ import { TbPlaylist } from "react-icons/tb";
 import { IconType } from "react-icons";
 import Box from "./Box";
 import Library from "./Library";
-import useUploadModal from "../hooks/useUploadModal";
+
 import { SafeUser } from "../types";
 import { toast } from "react-hot-toast";
+import useUploadModal from "../hooks/useUploadModal";
+import { Song } from "@prisma/client";
+import Link from "next/link";
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -18,9 +21,10 @@ interface SidebarProps {
   active?: boolean;
   href?: string;
   currentUser?: SafeUser | null;
+  songs?: Song[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ children, currentUser }) => {
+const Sidebar: React.FC<SidebarProps> = ({ children, currentUser, songs }) => {
   const pathname = usePathname();
 
   const uploadModal = useUploadModal();
@@ -57,13 +61,12 @@ const Sidebar: React.FC<SidebarProps> = ({ children, currentUser }) => {
         <Box>
           <div className="flex flex-col gap-y-5 px-5 py-5">
             {routes.map((item) => (
-              <div
-                key={item.label}
-                className="flex items-center gap-5 text-neutral-300 font-semibold cursor-pointer hover:text-neutral-50 transition hover:duration-150 tracking-wide"
-              >
-                <item.Icon size="1.4rem" />
-                <p className="text-base">{item.label}</p>
-              </div>
+              <Link href={item.href} key={item.label}>
+                <div className="flex items-center gap-5 text-neutral-300 font-semibold cursor-pointer hover:text-neutral-50 transition hover:duration-150 tracking-wide">
+                  <item.Icon size="1.4rem" />
+                  <p className="text-base">{item.label}</p>
+                </div>
+              </Link>
             ))}
           </div>
         </Box>
@@ -81,7 +84,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, currentUser }) => {
                 <FiPlus size="1.4rem" />
               </button>
             </div>
-            <Library />
+            <Library songs={songs} />
           </div>
         </Box>
       </div>

@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -48,13 +49,17 @@ model User {
   updatedAt      DateTime  @updatedAt
   accounts       Account[]
   sessions       Session[]
-  // songs          Song[]
+  songs          Song[]
 }
 
-// model Song {
-//   id     Int     @id @default(autoincrement())
-//   user   User?   @relation(fields: [userId], references: [id])
-//   userId String?
-//   title  String?
-//   auth
-// }
+model Song {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String?
+  artist    String?
+  imagePath String?
+  songPath  String?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+}

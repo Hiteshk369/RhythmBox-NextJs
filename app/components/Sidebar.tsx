@@ -7,6 +7,9 @@ import { TbPlaylist } from "react-icons/tb";
 import { IconType } from "react-icons";
 import Box from "./Box";
 import Library from "./Library";
+import useUploadModal from "../hooks/useUploadModal";
+import { SafeUser } from "../types";
+import { toast } from "react-hot-toast";
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -14,10 +17,13 @@ interface SidebarProps {
   label?: string;
   active?: boolean;
   href?: string;
+  currentUser?: SafeUser | null;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ children }) => {
+const Sidebar: React.FC<SidebarProps> = ({ children, currentUser }) => {
   const pathname = usePathname();
+
+  const uploadModal = useUploadModal();
 
   const routes = useMemo(
     () => [
@@ -36,6 +42,14 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
     ],
     [pathname]
   );
+
+  const handleUploadModal = () => {
+    if (!currentUser) {
+      toast.error("Login to continue");
+      return null;
+    }
+    uploadModal.onOpen();
+  };
 
   return (
     <div className="flex h-full">
@@ -60,9 +74,12 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
                 <TbPlaylist size="1.4rem" />
                 <p>Your Library</p>
               </div>
-              <div className="text-neutral-300 cursor-pointer hover:text-neutral-50 transition hover:duration-150 ">
+              <button
+                onClick={handleUploadModal}
+                className="text-neutral-300 cursor-pointer hover:text-neutral-50 transition hover:duration-150 "
+              >
                 <FiPlus size="1.4rem" />
-              </div>
+              </button>
             </div>
             <Library />
           </div>

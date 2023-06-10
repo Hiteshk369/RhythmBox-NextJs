@@ -3,9 +3,10 @@ import Header from "../components/Header";
 import ListItem from "../components/ListItem";
 
 export default async function Home() {
+  const currentUser = await getCurrentUser();
   return (
     <div className="bg-[#121212] h-[calc(100%-10%)] rounded-lg w-full overflow-hidden overflow-y-auto">
-      <Header>
+      <Header currentUser={currentUser}>
         <div className="mb-2">
           <h1 className="text-white md:text-3xl text-2xl font-semibold">
             Welcome Back

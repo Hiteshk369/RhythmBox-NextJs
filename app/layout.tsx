@@ -7,6 +7,8 @@ import "./globals.css";
 import LoginModal from "./components/Modals/LoginModal";
 import RegisterModal from "./components/Modals/RegisterModal";
 import Provider from "./providers/SessionProvider";
+import UploadModal from "./components/Modals/UploadModal";
+import getCurrentUser from "./actions/getCurrentUser";
 
 const font = Figtree({ subsets: ["latin"] });
 
@@ -15,20 +17,20 @@ export const metadata = {
   description: "A music web application",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const currentUser = await getCurrentUser();
   return (
     <html lang="en">
       <body className={font.className}>
-        <Provider>
-          <ToasterProvider />
-          <LoginModal />
-          <RegisterModal />
-          <Sidebar>{children}</Sidebar>
-        </Provider>
+        <ToasterProvider />
+        <LoginModal />
+        <RegisterModal />
+        <UploadModal />
+        <Sidebar currentUser={currentUser}>{children}</Sidebar>
       </body>
     </html>
   );

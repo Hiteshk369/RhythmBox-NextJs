@@ -1,11 +1,16 @@
 "use client";
-import { SafeUser } from "../types";
+
 import { twMerge } from "tailwind-merge";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { FiHome, FiSearch } from "react-icons/fi";
-import Button from "./Button";
-import useLoginModal from "../hooks/useLoginModal";
+import { BsFillPersonFill } from "react-icons/bs";
+import Image from "next/image";
+import { signOut } from "next-auth/react";
+
 import useRegisterModal from "../hooks/useRegisterModal";
+import useLoginModal from "../hooks/useLoginModal";
+import { SafeUser } from "../types";
+import Button from "./Button";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -20,6 +25,7 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   const loginModel = useLoginModal();
   const registerModel = useRegisterModal();
+
   return (
     <div
       className={twMerge(
@@ -47,21 +53,47 @@ const Header: React.FC<HeaderProps> = ({
         <div className="flex justify-between items-center gap-4">
           <>
             <div>
-              <Button
-                onClick={registerModel.onOpen}
-                className="bg-transparent text-neutral-300 font-medium"
-              >
-                Sign up
-              </Button>
+              {currentUser ? (
+                <div className="flex items-center gap-3">
+                  <Button
+                    onClick={() => signOut()}
+                    className="bg-emerald-500 px-4 py-[1.5]"
+                  >
+                    Logout
+                  </Button>
+                  {currentUser?.image ? (
+                    <button className="   hover:opacity-75 transition">
+                      <Image
+                        className="rounded-full"
+                        width={60}
+                        height={60}
+                        src={currentUser?.image}
+                        alt="profile"
+                      />
+                    </button>
+                  ) : (
+                    <button className="bg-black w-10 h-10 p-3 rounded-full flex items-center justify-center hover:opacity-75 transition">
+                      <BsFillPersonFill size="1.2rem" />
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <>
+                  <div className="flex items-center gap-3">
+                    <Button
+                      onClick={loginModel.onOpen}
+                      className="bg-emerald-500 px-4 py-[1.5]"
+                    >
+                      Login
+                    </Button>
+                    <button className="bg-black w-10 h-10 p-3 rounded-full flex items-center justify-center hover:opacity-75 transition">
+                      <BsFillPersonFill size="1.2rem" />
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
-            <div>
-              <Button
-                onClick={loginModel.onOpen}
-                className="bg-white px-6 py-2"
-              >
-                Login {currentUser?.name}
-              </Button>
-            </div>
+            <div></div>
           </>
         </div>
       </div>

@@ -8,6 +8,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: () => void;
+  onChange?: () => void;
   title?: string;
   subtitle?: string;
   body?: React.ReactElement;
@@ -88,23 +89,15 @@ const Modal: React.FC<ModalProps> = ({
                 <div className="flex flex-row items-center w-full">
                   <div className="flex flex-col w-full space-y-6">
                     <button
-                      className="w-full bg-rose-500 border-rose-600 border py-2 rounded-lg disabled:opacity-70 disabled:cursor-not-allowed relative transition hover:opacity-80"
+                      className={twMerge(
+                        "w-full bg-gradient-to-r from-emerald-400 to-emerald-600 border-emerald-600 text-black font-semibold border py-2 rounded-lg relative transition hover:opacity-80",
+                        disabled && "cursor-not-allowed opacity-70"
+                      )}
                       disabled={disabled}
                       onClick={handleSubmit}
                     >
                       {actionLabel}
                     </button>
-
-                    <div className="relative">
-                      <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-gray-300" />
-                      </div>
-                      <div className="relative flex justify-center text-sm">
-                        <span className="bg-[#121212] px-2 text-gray-500">
-                          Or continue with
-                        </span>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 {footer}

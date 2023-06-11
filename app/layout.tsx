@@ -1,6 +1,6 @@
 import { Figtree } from "next/font/google";
 
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/SidebarComponents/Sidebar";
 import ToasterProvider from "./providers/ToasterProvider";
 
 import "./globals.css";

@@ -9,10 +9,9 @@ import axios from "axios";
 
 import Input from "../Input";
 import Modal from "./Modal";
-import { SafeUser } from "@/app/types";
-
-import { supabase } from "@/app/libs/supabaseClient";
 import useUploadModal from "@/app/hooks/useUploadModal";
+import { supabase } from "@/app/libs/supabaseClient";
+import { SafeUser } from "@/app/types";
 
 interface uploadModalProps {
   currentUser: SafeUser | null;
@@ -43,7 +42,7 @@ const UploadModal: React.FC<uploadModalProps> = ({ currentUser }) => {
 
       const songFile = data.song?.[0];
       const imageFile = data.image?.[0];
-      console.log(data);
+
       if (!imageFile || !songFile || !currentUser) {
         toast.error("Missing Fields");
         return;

@@ -6,11 +6,12 @@ import { FiHome, FiSearch } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 import useRegisterModal from "../hooks/useRegisterModal";
 import useLoginModal from "../hooks/useLoginModal";
-import { SafeUser } from "../types";
 import Button from "./Button";
+import { SafeUser } from "../types";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -43,12 +44,16 @@ const Header: React.FC<HeaderProps> = ({
           </button>
         </div>
         <div className="md:hidden flex gap-2 items-center">
-          <button className="bg-black w-10 h-10 rounded-full flex items-center justify-center hover:opacity-75 transition">
-            <FiHome size="1.2rem" />
-          </button>
-          <button className="bg-black w-10 h-10 rounded-full flex items-center justify-center hover:opacity-75 transition">
-            <FiSearch size="1.2rem" />
-          </button>
+          <Link href="/">
+            <button className="bg-black w-10 h-10 rounded-full flex items-center justify-center hover:opacity-75 transition">
+              <FiHome size="1.2rem" />
+            </button>
+          </Link>
+          <Link href="/search">
+            <button className="bg-black w-10 h-10 rounded-full flex items-center justify-center hover:opacity-75 transition">
+              <FiSearch size="1.2rem" />
+            </button>
+          </Link>
         </div>
         <div className="flex justify-between items-center gap-4">
           <>
@@ -68,6 +73,7 @@ const Header: React.FC<HeaderProps> = ({
                         width={60}
                         height={60}
                         src={currentUser?.image}
+                        sizes="100vw"
                         alt="profile"
                       />
                     </button>

@@ -1,9 +1,13 @@
+"use client";
+
 import { Song } from "@prisma/client";
 import Image from "next/image";
+
 import useLoadImage from "../hooks/useLoadImage";
+import { SafeSongs } from "../types";
 
 interface MediaItemProps {
-  data: Song;
+  data: SafeSongs | Song;
 }
 
 const MediaItem: React.FC<MediaItemProps> = ({ data }) => {
@@ -16,6 +20,7 @@ const MediaItem: React.FC<MediaItemProps> = ({ data }) => {
           src={imageUrl || "/images/liked.png"}
           alt="MediaItem"
           className="object-cover"
+          sizes="100vw"
         />
       </div>
       <div className="flex flex-col gap-y-1 overflow-hidden">

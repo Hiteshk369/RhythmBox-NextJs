@@ -1,7 +1,7 @@
 "use client";
 
 import { Song } from "@prisma/client";
-import MediaItem from "./MediaItem";
+import MediaItem from "../MediaItem";
 
 interface LibraryProps {
   songs?: Song[];

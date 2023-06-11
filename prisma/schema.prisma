@@ -50,6 +50,7 @@ model User {
   accounts       Account[]
   sessions       Session[]
   songs          Song[]
+  favouriteIds   String[]
 }
 
 model Song {

@@ -1,7 +1,8 @@
-import { supabase } from "../libs/supabaseClient";
 import { Song } from "@prisma/client";
+import { supabase } from "../libs/supabaseClient";
+import { SafeSongs } from "../types";
 
-const useLoadImage = (song: Song) => {
+const useLoadImage = (song: SafeSongs | Song) => {
   if (!song) {
     return null;
   }

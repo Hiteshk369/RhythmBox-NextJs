@@ -1,9 +1,10 @@
 import getCurrentUser from "../actions/getCurrentUser";
 import getSongsByTitle from "../actions/getSongsByTitle";
 import Header from "../components/Header";
-import SearchContent from "../components/SearchContent";
-import SearchInput from "../components/SearchInput";
+import SearchContent from "./SearchComponents/SearchContent";
+import SearchInput from "./SearchComponents/SearchInput";
 
+export const revalidate = 0;
 interface SearchProps {
   searchParams: {
     title: string;
@@ -21,7 +22,7 @@ const Search = async ({ searchParams }: SearchProps) => {
           <SearchInput />
         </div>
       </Header>
-      <SearchContent songs={songs} />
+      <SearchContent songs={songs} currentUser={currentUser} />
     </div>
   );
 };

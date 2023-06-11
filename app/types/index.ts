@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Song, User } from "@prisma/client";
 
 export type SafeUser = Omit<
   User,
@@ -9,11 +9,6 @@ export type SafeUser = Omit<
   emailVerified: string | null;
 };
 
-// export interface Song {
-//   id?: string;
-//   userId?: string;
-//   title?: string;
-//   artist?: string;
-//   imagePath?: string;
-//   songPath?: string;
-// }
+export type SafeSongs = Omit<Song, "createdAt"> & {
+  createdAt: string;
+};

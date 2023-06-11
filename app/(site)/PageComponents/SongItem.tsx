@@ -1,6 +1,9 @@
-import { Song } from "@prisma/client";
+"use client";
+
 import Image from "next/image";
-import useLoadImage from "../hooks/useLoadImage";
+
+import { Song } from "@prisma/client";
+import useLoadImage from "../../hooks/useLoadImage";
 import { FaPlay } from "react-icons/fa";
 
 interface SongItemProps {
@@ -18,6 +21,7 @@ const SongItem: React.FC<SongItemProps> = ({ data }) => {
           src={imagePath || "/images/liked.png"}
           alt="thumbnail"
           fill
+          sizes="100vw"
         />
         <div className="absolute bottom-2 right-2 transition opacity-0 rounded-full flex items-center justify-center bg-green-500 p-4 drop-shadow-md  group-hover:opacity-100  hover:scale-110">
           <FaPlay className="text-black" />

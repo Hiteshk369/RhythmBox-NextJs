@@ -1,11 +1,19 @@
+"use client";
+
 import { Song } from "@prisma/client";
-import MediaItem from "./MediaItem";
+import MediaItem from "../../components/MediaItem";
+import LikeButton from "../../components/LikeButton";
+import { SafeSongs, SafeUser } from "../../types";
 
 interface SearchContentProps {
-  songs?: Song[];
+  songs?: SafeSongs[] | Song[];
+  currentUser?: SafeUser | null;
 }
 
-const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
+const SearchContent: React.FC<SearchContentProps> = ({
+  songs,
+  currentUser,
+}) => {
   if (songs?.length === 0) {
     return (
       <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">
@@ -20,6 +28,7 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
           <div className="flex-1">
             <MediaItem data={song} />
           </div>
+          <LikeButton songId={song.id} currentUser={currentUser} />
         </div>
       ))}
     </div>

@@ -5,14 +5,14 @@ import { useMemo } from "react";
 import { FiHome, FiSearch, FiPlus } from "react-icons/fi";
 import { TbPlaylist } from "react-icons/tb";
 import { IconType } from "react-icons";
-import Box from "./Box";
-import Library from "./Library";
-
-import { SafeUser } from "../types";
 import { toast } from "react-hot-toast";
-import useUploadModal from "../hooks/useUploadModal";
-import { Song } from "@prisma/client";
 import Link from "next/link";
+
+import Box from "../Box";
+import Library from "./Library";
+import { SafeUser } from "../../types";
+import useUploadModal from "../../hooks/useUploadModal";
+import { Song } from "@prisma/client";
 
 interface SidebarProps {
   children: React.ReactNode;

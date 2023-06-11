@@ -4,15 +4,14 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 import { signIn } from "next-auth/react";
-import { signOut } from "next-auth/react";
+import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 import Modal from "./Modal";
 import Input from "../Input";
-import { useCallback, useState } from "react";
-import { useRouter } from "next/navigation";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
-import { toast } from "react-hot-toast";
 
 const LoginModal = () => {
   const router = useRouter();

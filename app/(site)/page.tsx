@@ -1,15 +1,16 @@
 import getCurrentUser from "../actions/getCurrentUser";
 import getSongs from "../actions/getSongs";
+
 import Header from "../components/Header";
-import ListItem from "../components/ListItem";
-import PageContent from "../components/PageContent";
+import ListItem from "./PageComponents/ListItem";
+import PageContent from "./PageComponents/PageContent";
 
 export const revalidate = 0;
 
 export default async function Home() {
   const currentUser = await getCurrentUser();
   const songs = await getSongs();
-  console.log(songs);
+
   return (
     <div className="bg-[#121212] h-[calc(100%-10%)] rounded-lg w-full overflow-hidden overflow-y-scroll scrollbar-hide">
       <Header currentUser={currentUser}>
@@ -19,6 +20,7 @@ export default async function Home() {
           </h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 mt-4">
             <ListItem
+              currentUser={currentUser}
               image="/images/liked.png"
               name="Liked Songs"
               href="liked"

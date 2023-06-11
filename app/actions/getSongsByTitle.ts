@@ -20,7 +20,6 @@ const getSongsByTitle = async (title: string) => {
   });
 
   if (!songByTitle) {
-    console.log("no song found");
     const allSongs = await getSongs();
     return allSongs;
   }
